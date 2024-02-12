@@ -1,14 +1,19 @@
 import { useFonts } from 'expo-font';
-import { SplashScreen, Stack } from 'expo-router';
+import { SplashScreen, Slot, Stack } from 'expo-router';
 import { useEffect } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { TamaguiProvider } from 'tamagui';
 
 import config from '../tamagui.config';
+
+import AuthProvider from '~/services/providers/AuthProvider';
 
 export default function Layout() {
   const [loaded] = useFonts({
     Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
     InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
+    Lato: require('../assets/fonts/Lato-Regular.ttf'),
+    LatoBold: require('../assets/fonts/Lato-Bold.ttf'),
   });
 
   useEffect(() => {
@@ -21,7 +26,11 @@ export default function Layout() {
 
   return (
     <TamaguiProvider config={config}>
-      <Stack />
+      <AuthProvider>
+        <SafeAreaProvider>
+          <Stack screenOptions={{ headerShown: false }} />
+        </SafeAreaProvider>
+      </AuthProvider>
     </TamaguiProvider>
   );
 }

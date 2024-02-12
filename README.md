@@ -1,3 +1,14 @@
+# Your Expo Project Title
+
+## Flow
+
+1. For login, this app use Supabase for the authentication. For first time login, user need to enter the email and password
+   `email : test@gmail.com`
+   `password: test@1234`
+2. Session will be stored using securestore. After the first time login, user will be able to login back using biometric authentication. Biometric option will be display as long as the session is not expired.
+3. User will be able to navigate to Transaction History page. Some of the data will be masked with \*. In order to display it, user may click to 'show more info' and biometric authentication will prompt.
+4. User may click to the list to show more details. Another Biometric authentication will be prompt. Once success, user will be redirect to the Transaction Detail page
+
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:

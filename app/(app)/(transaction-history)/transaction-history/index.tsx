@@ -11,37 +11,43 @@ import { transactionService } from '~/services/api/transactions';
 import { useAuth } from '~/services/providers/AuthProvider';
 import formatDate from '~/utils/formatDate';
 
-const transactionData: SuccessResponse<TransactionsResponse> = require('../../../../services/mocks/transaction-history.json');
+// const transactionData: SuccessResponse<TransactionsResponse> = require('../../../../services/mocks/transaction-history.json');
 
 type SortedTransactions = (string | Transaction)[];
 
 export default function TransactionHistory() {
   const [isBiometricAuthenticated, setIsBiometricAuthenticated] = useState(false);
   const [showMask, setShowMask] = useState(true);
+  const [transactionData, setTransactionData] = useState<SuccessResponse<TransactionsResponse>>();
   const [sortedTransactions, setSortedTransactions] = useState<SortedTransactions>([]);
   const { onAuthenticateUser } = useAuth();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
-    const getData = async () => {
-      const res = await transactionService.getTransactions.execute();
-      console.log(res);
-    };
-
     getData();
-    getSortedTransactions();
   }, []);
+  const getData = async () => {
+    const res = await transactionService.getTransactions.execute();
+    console.log(res);
+    setTransactionData(res);
+  };
+
+  useEffect(() => {
+    if (transactionData) {
+      getSortedTransactions();
+    }
+  }, [transactionData]);
 
   const getSortedTransactions = () => {
     // Sort transactions by date
-    transactionData.data.transactions.sort(
+    transactionData?.data.transactions.sort(
       (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()
     );
 
     // Extract unique months from the transactions
     const uniqueMonths = [
       ...new Set(
-        transactionData.data.transactions.map((transaction) => transaction.date.substring(0, 7))
+        transactionData?.data.transactions.map((transaction) => transaction.date.substring(0, 7))
       ),
     ];
 
@@ -53,7 +59,7 @@ export default function TransactionHistory() {
         `${new Date(month + '-01').toLocaleString('en-US', { month: 'long', year: 'numeric' })}`
       );
 
-      transactionData.data.transactions
+      transactionData?.data.transactions
         .filter((transaction) => transaction.date.startsWith(month))
         .forEach((transaction) => sortedTransactions.push(transaction));
     });
@@ -66,7 +72,7 @@ export default function TransactionHistory() {
 
     // to mock the refresh, we will use a setTimeout
     setTimeout(() => {
-      getSortedTransactions();
+      getData();
       setIsRefreshing(false);
     }, 2000);
   };

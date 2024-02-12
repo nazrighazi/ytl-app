@@ -28,7 +28,6 @@ export default function TransactionHistory() {
   }, []);
   const getData = async () => {
     const res = await transactionService.getTransactions.execute();
-    console.log(res);
     setTransactionData(res);
   };
 

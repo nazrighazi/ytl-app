@@ -64,7 +64,6 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     }
 
     const res = await LocalAuthentication.authenticateAsync();
-    console.log(res);
     if (res.success) {
       onSuccess();
       setUnlockedValue(true);

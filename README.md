@@ -22,6 +22,7 @@ To install Your Expo Project, follow these steps:
 1. Clone the repository
 2. Navigate to the project directory: `cd ytl-app`
 3. Install the dependencies: `npm install`
+4. Add .env file at the root. You may check .env.example for reference
 
 ## Using Your Expo Project
 

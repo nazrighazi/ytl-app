@@ -1,5 +1,5 @@
 import NetInfo from '@react-native-community/netinfo';
-import { Redirect, Slot, Stack } from 'expo-router';
+import { Redirect, Slot } from 'expo-router';
 import { useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';

@@ -8,16 +8,16 @@ import { useAuth } from '~/services/providers/AuthProvider';
 export default function AppLayout() {
   const { session, loading, unlocked } = useAuth();
 
-  useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state) => {
-      console.log('Connection type', state.type);
-      console.log('Is connected?', state.isConnected);
-    });
+  // useEffect(() => {
+  //   const unsubscribe = NetInfo.addEventListener((state) => {
+  //     console.log('Connection type', state.type);
+  //     console.log('Is connected?', state.isConnected);
+  //   });
 
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, []);
 
   // You can keep the splash screen open, or render a loading screen like we do here.
   if (loading) {
